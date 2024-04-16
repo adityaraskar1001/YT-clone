@@ -25,7 +25,7 @@ const userSchema = new Schema({
         trim: true,
         index: true
     },
-    avater:{
+    avatar:{
         type: String, // third party app cloudinary url
         required: true
     },
@@ -53,7 +53,7 @@ const userSchema = new Schema({
 // Creating a middleware of default type using hooks
 userSchema.pre("save",async function (next){
     if(!this.isModified("password")) return next();
-    this.password = bcrypt.hash(this.password,10)
+    this.password = await bcrypt.hash(this.password,10)
     next()
 })
 
